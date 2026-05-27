@@ -67,9 +67,9 @@ A API sobe em `http://localhost:8080`.
 ### Criar categoria
 
 ```bash
-curl -X POST http://localhost:8080/categorias \
-  -H "Content-Type: application/json" \
-  -d '{"nome": "Eletrônicos"}'
+'{"
+    nome": "Eletrônicos"
+}'
 ```
 
 ```json
@@ -83,9 +83,7 @@ curl -X POST http://localhost:8080/categorias \
 ### Criar produto
 
 ```bash
-curl -X POST http://localhost:8080/produtos \
-  -H "Content-Type: application/json" \
-  -d '{
+'{
     "nome": "Camiseta Azul",
     "descricao": "100% algodão, tamanho M",
     "preco": 49.90,
@@ -110,9 +108,7 @@ curl -X POST http://localhost:8080/produtos \
 ### Atualizar produto
 
 ```bash
-curl -X PUT http://localhost:8080/produtos/1 \
-  -H "Content-Type: application/json" \
-  -d '{
+ '{
     "nome": "Camiseta Azul",
     "descricao": "100% algodão, tamanho G",
     "preco": 54.90,
