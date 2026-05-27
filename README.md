@@ -10,7 +10,7 @@
 ![License](https://img.shields.io/github/license/Francisco-Montalvao/backend-challenges-desafio-gerenciador-de-produtos?style=for-the-badge)
 ![GitHub stars](https://img.shields.io/github/stars/Francisco-Montalvao/backend-challenges-desafio-gerenciador-de-produtos?style=for-the-badge)
 
-*API para gerenciar o catálogo de produtos de um e-commerce, com suporte a categorias, validações e tratamento de erros padronizado.*
+*Solução para o desafio de backend [gerenciador-produtos](https://github.com/Francisco-Montalvao/backend-challenges/tree/main/junior/crud/gerenciador-produtos) — API REST com CRUD completo de produtos e categorias, validações e tratamento de erros padronizado.*
 
 </div>
 
