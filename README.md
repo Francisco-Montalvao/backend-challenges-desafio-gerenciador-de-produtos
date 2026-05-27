@@ -1,3 +1,5 @@
+<div align="center">
+
 # 🛒 Gerenciador de Produtos API
 
 ![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
@@ -8,40 +10,46 @@
 ![License](https://img.shields.io/github/license/Francisco-Montalvao/backend-challenges-desafio-gerenciador-de-produtos?style=for-the-badge)
 ![GitHub stars](https://img.shields.io/github/stars/Francisco-Montalvao/backend-challenges-desafio-gerenciador-de-produtos?style=for-the-badge)
 
-API desenvolvida em Java 21 + Spring Boot para gerenciar o catálogo de produtos de um e-commerce, com suporte a categorias, validações e tratamento de erros.
+*API para gerenciar o catálogo de produtos de um e-commerce, com suporte a categorias, validações e tratamento de erros padronizado.*
+
+</div>
 
 ---
 
 ## 📌 Índice
 
-- [Tecnologias](#-tecnologias)
-- [Regras de negócio](#-regras-de-negócio)
-- [Validações e Exceções](#-validações-e-tratamento-de-exceções)
-- [Endpoints](#-endpoints)
-- [Como Executar](#-como-executar)
-- [Estrutura do Projeto](#-estrutura-do-projeto)
+- [🚀 Tecnologias](#-tecnologias)
+- [📊 Regras de negócio](#-regras-de-negócio)
+- [🛡️ Validações e Exceções](#-validações-e-tratamento-de-exceções)
+- [📑 Endpoints](#-endpoints)
+- [💡 Exemplos de uso](#-exemplos-de-uso)
+- [▶️ Como Executar](#-como-executar)
+- [🗄️ Modelo de dados](#-modelo-de-dados)
+- [📂 Estrutura do Projeto](#-estrutura-do-projeto)
 
 ---
 
 ## 🚀 Tecnologias
 
-- Java 21
-- Spring Boot 4.0.6
-- Spring Data JPA
-- Spring Validation
-- PostgreSQL
-- Lombok
+| Tecnologia | Descrição |
+|---|---|
+| Java 21 | Linguagem principal |
+| Spring Boot 4.0.6 | Framework web |
+| Spring Data JPA | Persistência e acesso a dados |
+| Spring Validation | Validação de entrada via Bean Validation |
+| PostgreSQL | Banco de dados relacional |
+| Lombok | Redução de boilerplate |
 
 ---
 
 ## 📊 Regras de negócio
 
-- Nome de produto e de categoria devem ser únicos
-- Preço deve ser maior que zero
-- Estoque não pode ser negativo
-- `categoria_id` deve referenciar uma categoria existente
-- Não é permitido deletar uma categoria que possui produtos vinculados
-- O `PUT` substitui o recurso por completo — todos os campos são obrigatórios
+- Nome de produto e de categoria devem ser **únicos**
+- Preço deve ser **maior que zero**
+- Estoque **não pode ser negativo**
+- `categoria_id` deve referenciar uma **categoria existente**
+- **Não é permitido deletar** uma categoria que possui produtos vinculados
+- O `PUT` substitui o recurso por completo — **todos os campos são obrigatórios**
 - Lista vazia retorna `200` com `[]`, nunca `404`
 
 ---
@@ -50,7 +58,9 @@ API desenvolvida em Java 21 + Spring Boot para gerenciar o catálogo de produtos
 
 A API conta com validação estruturada dos dados de entrada via Bean Validation. Caso ocorram erros, um `GlobalExceptionHandler` intercepta e retorna respostas padronizadas.
 
-**Exemplo de erro de validação — `400 Bad Request`:**
+<details>
+<summary>🔴 <strong>400 Bad Request</strong> — erro de validação de campos</summary>
+
 ```json
 {
   "timestamp": "2026-05-27T15:14:38.917029",
@@ -69,16 +79,11 @@ A API conta com validação estruturada dos dados de entrada via Bean Validation
 }
 ```
 
-**Exemplo de erro de conflito — `409 Conflict`:**
-```json
-{
-  "timestamp": "2026-05-27T15:15:15.979381",
-  "status": 409,
-  "mensagem": "Já existe um produto com o nome Camiseta Azul"
-}
-```
+</details>
 
-**Exemplo de não encontrado — `404 Not Found`:**
+<details>
+<summary>🟡 <strong>404 Not Found</strong> — recurso não encontrado</summary>
+
 ```json
 {
   "timestamp": "2026-05-27T15:13:13.922031",
@@ -87,66 +92,81 @@ A API conta com validação estruturada dos dados de entrada via Bean Validation
 }
 ```
 
+</details>
+
+<details>
+<summary>🟠 <strong>409 Conflict</strong> — nome duplicado</summary>
+
+```json
+{
+  "timestamp": "2026-05-27T15:15:15.979381",
+  "status": 409,
+  "mensagem": "Já existe um produto com o nome Camiseta Azul"
+}
+```
+
+</details>
+
 ---
 
 ## 📑 Endpoints
 
 ### Categorias
 
-| Método | Endpoint | Descrição | Status |
-|---|---|---|---|
-| `POST` | `/categorias` | Cria uma categoria | `201` / `409` nome duplicado |
-| `GET` | `/categorias` | Lista todas | `200` |
-| `DELETE` | `/categorias/{id}` | Remove | `204` / `404` / `400` com produtos vinculados |
+| Método | Endpoint | Descrição | Respostas |
+|:---:|---|---|---|
+| `POST` | `/categorias` | Cria uma categoria | `201` · `409` nome duplicado |
+| `GET` | `/categorias` | Lista todas as categorias | `200` |
+| `DELETE` | `/categorias/{id}` | Remove uma categoria | `204` · `404` · `400` com produtos vinculados |
 
 ### Produtos
 
-| Método | Endpoint | Descrição | Status |
-|---|---|---|---|
-| `POST` | `/produtos` | Cria um produto | `201` / `400` / `404` |
-| `GET` | `/produtos` | Lista todos | `200` |
-| `GET` | `/produtos/{id}` | Busca por ID | `200` / `404` |
-| `PUT` | `/produtos/{id}` | Atualiza por completo | `200` / `400` / `404` |
-| `DELETE` | `/produtos/{id}` | Remove | `204` / `404` |
+| Método | Endpoint | Descrição | Respostas |
+|:---:|---|---|---|
+| `POST` | `/produtos` | Cria um produto | `201` · `400` · `404` |
+| `GET` | `/produtos` | Lista todos os produtos | `200` |
+| `GET` | `/produtos/{id}` | Busca produto por ID | `200` · `404` |
+| `PUT` | `/produtos/{id}` | Atualiza produto por completo | `200` · `400` · `404` |
+| `DELETE` | `/produtos/{id}` | Remove um produto | `204` · `404` |
 
 ---
 
-## ✅ Exemplos de uso
+## 💡 Exemplos de uso
 
-### Criar categoria
+### 🏷️ Criar categoria
 
-Request:
-```json
-{
-  "nome": "Eletrônicos"
-}
+```bash
+curl -X POST http://localhost:8080/categorias \
+  -H "Content-Type: application/json" \
+  -d '{"nome": "Roupas"}'
 ```
 
-Response `201`:
+**`201 Created`**
 ```json
 {
   "id": 1,
-  "nome": "Eletrônicos",
+  "nome": "Roupas",
   "criadoEm": "2026-05-21T10:00:00"
 }
 ```
 
 ---
 
-### Criar produto
+### 📦 Criar produto
 
-Request:
-```json
-{
-  "nome": "Camiseta Azul",
-  "descricao": "100% algodão, tamanho M",
-  "preco": 49.90,
-  "estoque": 100,
-  "categoria_id": 1
-}
+```bash
+curl -X POST http://localhost:8080/produtos \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nome": "Camiseta Azul",
+    "descricao": "100% algodão, tamanho M",
+    "preco": 49.90,
+    "estoque": 100,
+    "categoria_id": 1
+  }'
 ```
 
-Response `201`:
+**`201 Created`**
 ```json
 {
   "id": 1,
@@ -156,7 +176,7 @@ Response `201`:
   "estoque": 100,
   "categoria": {
     "id": 1,
-    "nome": "Eletrônicos"
+    "nome": "Roupas"
   },
   "criadoEm": "2026-05-21T10:30:00",
   "atualizadoEm": "2026-05-21T10:30:00"
@@ -165,20 +185,21 @@ Response `201`:
 
 ---
 
-### Atualizar produto
+### ✏️ Atualizar produto
 
-Request:
-```json
-{
-  "nome": "Camiseta Azul",
-  "descricao": "100% algodão, tamanho G",
-  "preco": 54.90,
-  "estoque": 80,
-  "categoria_id": 1
-}
+```bash
+curl -X PUT http://localhost:8080/produtos/1 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nome": "Camiseta Azul",
+    "descricao": "100% algodão, tamanho G",
+    "preco": 54.90,
+    "estoque": 80,
+    "categoria_id": 1
+  }'
 ```
 
-Response `200`:
+**`200 OK`**
 ```json
 {
   "id": 1,
@@ -188,7 +209,7 @@ Response `200`:
   "estoque": 80,
   "categoria": {
     "id": 1,
-    "nome": "Eletrônicos"
+    "nome": "Roupas"
   },
   "criadoEm": "2026-05-21T10:30:00",
   "atualizadoEm": "2026-05-21T11:00:00"
@@ -197,22 +218,24 @@ Response `200`:
 
 ---
 
-## ✅ Como executar
+## ▶️ Como executar
 
 ### Pré-requisitos
 
 - Java 21+
 - PostgreSQL rodando localmente
 
-### Configuração do banco
+### 1. Configurar o banco de dados
 
-Crie o banco de dados antes de subir a aplicação:
+Crie o banco antes de subir a aplicação:
 
 ```sql
 CREATE DATABASE gerenciador;
 ```
 
-As configurações de conexão ficam em `src/main/resources/application-dev.properties`. Ajuste usuário e senha conforme seu ambiente:
+### 2. Ajustar as credenciais
+
+Edite `src/main/resources/application-dev.properties` com os dados do seu ambiente:
 
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/gerenciador
@@ -220,15 +243,41 @@ spring.datasource.username=seu_usuario
 spring.datasource.password=sua_senha
 ```
 
-O Hibernate cria e atualiza as tabelas automaticamente via `ddl-auto=update`.
+> O Hibernate cria e atualiza as tabelas automaticamente via `ddl-auto=update`.
 
-### Rodar localmente
+### 3. Rodar a aplicação
 
 ```bash
 ./mvnw spring-boot:run
 ```
 
-A API sobe em `http://localhost:8080`.
+A API estará disponível em `http://localhost:8080`.
+
+---
+
+## 🗄️ Modelo de dados
+
+```mermaid
+erDiagram
+    CATEGORIAS {
+        bigint id PK
+        varchar nome UK
+        timestamp criado_em
+    }
+
+    PRODUTOS {
+        bigint id PK
+        varchar nome UK
+        text descricao
+        numeric preco
+        int estoque
+        bigint categoria_id FK
+        timestamp criado_em
+        timestamp atualizado_em
+    }
+
+    CATEGORIAS ||--o{ PRODUTOS : "tem"
+```
 
 ---
 
@@ -236,17 +285,21 @@ A API sobe em `http://localhost:8080`.
 
 ```
 src/main/java/com/francisco_montalvao/gprodutos/
-├── controller/   # Recebe requisições e devolve respostas HTTP
-├── service/      # Regras de negócio
-├── repository/   # Acesso ao banco via Spring Data JPA
-├── model/        # Entidades JPA (Produto, Categoria)
-├── dto/          # Objetos de entrada (request) e saída (response)
-├── mapper/       # Conversão entre entidade e DTO
-└── exception/    # Exceções customizadas e handler global
+├── controller/    # Recebe requisições e devolve respostas HTTP
+├── service/       # Regras de negócio
+├── repository/    # Acesso ao banco via Spring Data JPA
+├── model/         # Entidades JPA (Produto, Categoria)
+├── dto/           # Objetos de entrada (request) e saída (response)
+├── mapper/        # Conversão entre entidade e DTO
+└── exception/     # Exceções customizadas e handler global
 ```
 
 ---
 
-🧑‍💻 Desenvolvido por [Francisco Montalvao](https://github.com/Francisco-Montalvao) 🚀
+<div align="center">
 
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+🧑‍💻 Desenvolvido por [Francisco Montalvao](https://github.com/Francisco-Montalvao)
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+</div>
